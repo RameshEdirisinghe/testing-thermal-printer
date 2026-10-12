@@ -13,49 +13,52 @@ export const BrowserCompatibilityBanner: React.FC<BrowserCompatibilityBannerProp
 
   return (
     <div className={`border-b text-xs transition-colors ${hasIssues ? 'bg-amber-950/30 border-amber-800/40' : 'bg-slate-800/40 border-slate-800'}`}>
-      <div className="max-w-7xl mx-auto px-4 lg:px-8 py-2.5 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-3 flex-wrap">
-          <span className="font-semibold text-slate-300 flex items-center gap-1.5">
-            <span>Environment:</span>
-            <span className="text-white font-normal bg-slate-800 px-2 py-0.5 rounded border border-slate-700">
-              {env.browserName} on {env.osName}
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-2 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2.5 flex-wrap">
+          <span className="font-semibold text-slate-300 flex items-center gap-1 text-[11px] sm:text-xs">
+            <span>Env:</span>
+            <span className="text-white font-normal bg-slate-800 px-1.5 py-0.5 rounded border border-slate-700 text-[10px] sm:text-xs">
+              {env.browserName}
             </span>
           </span>
 
           {/* Secure Context Pill */}
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80">
+          <div className="flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-[10px] sm:text-[11px]">
             {env.isSecureContext ? (
-              <IconCheckCircle size={12} className="text-emerald-400" />
+              <IconCheckCircle size={11} className="text-emerald-400 flex-shrink-0" />
             ) : (
-              <IconXCircle size={12} className="text-rose-400" />
+              <IconXCircle size={11} className="text-rose-400 flex-shrink-0" />
             )}
             <span className={env.isSecureContext ? 'text-slate-300' : 'text-rose-300 font-medium'}>
-              {env.isSecureContext ? 'Secure Context (HTTPS/localhost)' : 'Insecure Context (HTTP)'}
+              <span className="sm:hidden">HTTPS</span>
+              <span className="hidden sm:inline">Secure Context (HTTPS)</span>
             </span>
           </div>
 
           {/* Web Bluetooth Pill */}
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80">
-            <IconBluetooth size={12} className={env.hasWebBluetooth ? 'text-cyan-400' : 'text-slate-500'} />
+          <div className="flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-[10px] sm:text-[11px]">
+            <IconBluetooth size={11} className={env.hasWebBluetooth ? 'text-cyan-400 flex-shrink-0' : 'text-slate-500 flex-shrink-0'} />
             <span className={env.hasWebBluetooth ? 'text-slate-300' : 'text-slate-500'}>
-              Web Bluetooth: {env.hasWebBluetooth ? 'Available' : 'Unavailable'}
+              <span className="sm:hidden">BLE {env.hasWebBluetooth ? '✓' : '✗'}</span>
+              <span className="hidden sm:inline">Web Bluetooth: {env.hasWebBluetooth ? 'Available' : 'Unavailable'}</span>
             </span>
           </div>
 
           {/* WebUSB Pill */}
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80">
-            <IconUsb size={12} className={env.hasWebUsb ? 'text-cyan-400' : 'text-slate-500'} />
+          <div className="flex items-center gap-1 px-1.5 sm:px-2 py-0.5 rounded bg-slate-900 border border-slate-700/80 text-[10px] sm:text-[11px]">
+            <IconUsb size={11} className={env.hasWebUsb ? 'text-cyan-400 flex-shrink-0' : 'text-slate-500 flex-shrink-0'} />
             <span className={env.hasWebUsb ? 'text-slate-300' : 'text-slate-500'}>
-              WebUSB: {env.hasWebUsb ? 'Available' : 'Unavailable'}
+              <span className="sm:hidden">USB {env.hasWebUsb ? '✓' : '✗'}</span>
+              <span className="hidden sm:inline">WebUSB: {env.hasWebUsb ? 'Available' : 'Unavailable'}</span>
             </span>
           </div>
         </div>
 
         <button
           onClick={() => setExpanded(!expanded)}
-          className="text-cyan-400 hover:text-cyan-300 underline font-medium text-[11px]"
+          className="text-cyan-400 hover:text-cyan-300 underline font-medium text-[10px] sm:text-[11px] self-start sm:self-auto"
         >
-          {expanded ? 'Hide Details' : 'Compatibility & Driver Details'}
+          {expanded ? 'Hide Details' : 'Driver Guidelines'}
         </button>
       </div>
 

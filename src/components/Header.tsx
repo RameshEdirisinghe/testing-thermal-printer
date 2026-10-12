@@ -64,54 +64,70 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur sticky top-0 z-40 px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3.5 flex flex-wrap items-center justify-between gap-3">
-      <div className="flex items-center gap-2.5 sm:gap-3">
-        <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 flex-shrink-0">
-          <IconPrinter size={20} className="sm:w-[22px] sm:h-[22px]" />
-        </div>
-        <div>
-          <div className="flex items-center gap-2">
-            <h1 className="text-base sm:text-lg font-bold tracking-tight text-white">ThermoDiagnostix</h1>
-            <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono">
-              v1.0
-            </span>
+    <header className="border-b border-slate-800 bg-slate-900/95 backdrop-blur sticky top-0 z-40 px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3.5">
+      <div className="max-w-7xl mx-auto flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-4">
+        {/* Top Brand & Status on Mobile */}
+        <div className="flex items-center justify-between sm:justify-start gap-2.5">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-lg shadow-cyan-500/20 flex-shrink-0">
+              <IconPrinter size={18} className="sm:w-[22px] sm:h-[22px]" />
+            </div>
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5">
+                <h1 className="text-sm sm:text-lg font-bold tracking-tight text-white leading-tight truncate">ThermoDiagnostix</h1>
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-wider px-1 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono flex-shrink-0">
+                  v1.0
+                </span>
+              </div>
+              <p className="text-[11px] text-slate-400 hidden md:block">
+                Professional Thermal Receipt Printer Diagnostic & Testing Web Suite
+              </p>
+            </div>
           </div>
-          <p className="text-xs text-slate-400 hidden md:block">
-            Professional Thermal Receipt Printer Diagnostic & Testing Web Suite
-          </p>
+
+          {/* On mobile screens, Status Badge sits right next to the title */}
+          <div className="sm:hidden flex-shrink-0">
+            {getStatusBadge()}
+          </div>
         </div>
-      </div>
 
-      <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
-        {getStatusBadge()}
+        {/* Action Controls & Desktop Status */}
+        <div className="flex items-center justify-between sm:justify-end gap-2">
+          {/* On desktop screens, Status Badge sits before settings */}
+          <div className="hidden sm:block">
+            {getStatusBadge()}
+          </div>
 
-        <div className="h-5 w-px bg-slate-800 hidden sm:block" />
+          <div className="h-5 w-px bg-slate-800 hidden sm:block" />
 
-        <button
-          onClick={onOpenSettings}
-          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-colors border border-slate-700/60"
-          title="Profile & Hardware Settings"
-        >
-          <IconSettings size={14} />
-          <span className="hidden xs:inline">Settings</span>
-        </button>
+          <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+            <button
+              onClick={onOpenSettings}
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-colors border border-slate-700/60"
+              title="Profile & Hardware Settings"
+            >
+              <IconSettings size={14} />
+              <span>Settings</span>
+            </button>
 
-        <button
-          onClick={onOpenHelp}
-          className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-colors border border-slate-700/60"
-          title="Hardware Documentation & Troubleshooting"
-        >
-          <IconHelpCircle size={14} />
-          <span className="hidden xs:inline">Guide</span>
-        </button>
+            <button
+              onClick={onOpenHelp}
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition-colors border border-slate-700/60"
+              title="Hardware Documentation & Troubleshooting"
+            >
+              <IconHelpCircle size={14} />
+              <span>Guide</span>
+            </button>
 
-        <button
-          onClick={onReset}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors"
-          title="Reset Dashboard State"
-        >
-          <IconRefreshCw size={14} />
-        </button>
+            <button
+              onClick={onReset}
+              className="p-1.5 rounded-lg text-slate-400 hover:text-slate-200 hover:bg-slate-800 transition-colors border border-slate-700/40 sm:border-0 flex-shrink-0"
+              title="Reset Dashboard State"
+            >
+              <IconRefreshCw size={14} />
+            </button>
+          </div>
+        </div>
       </div>
     </header>
   );

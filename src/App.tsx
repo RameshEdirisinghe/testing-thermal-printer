@@ -59,7 +59,7 @@ export const App: React.FC = () => {
   const [isBusy, setIsBusy] = useState<boolean>(false);
   const [previewTestPayload, setPreviewTestPayload] = useState<{ id: DiagnosticTestId; title: string; bytes: Uint8Array } | null>(null);
   const [browserPrintText, setBrowserPrintText] = useState<string | null>(null);
-  const [mobileTab, setMobileTab] = useState<'tests' | 'preview'>('tests');
+  const [mobileTab, setMobileTab] = useState<'tests' | 'preview' | 'logs'>('tests');
 
   // Modals state
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -379,7 +379,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-900 text-slate-100 flex flex-col font-sans w-full max-w-full overflow-x-hidden">
       {/* Top Header */}
       <Header
         status={status}
@@ -393,7 +393,7 @@ export const App: React.FC = () => {
       <BrowserCompatibilityBanner env={env} />
 
       {/* Main Dashboard Layout */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 space-y-5 sm:space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-6 space-y-4 sm:space-y-6 overflow-x-hidden">
         {/* Receipt Width & Profile Bar */}
         <PrinterProfileSelector
           activeProfile={activeProfile}
@@ -424,37 +424,49 @@ export const App: React.FC = () => {
         )}
 
         {/* Mobile View Switcher (Visible only on screens below lg) */}
-        <div className="flex lg:hidden rounded-xl bg-slate-800/90 p-1 border border-slate-700/80 shadow-md">
+        <div className="grid grid-cols-3 lg:hidden rounded-xl bg-slate-900/90 p-1 border border-slate-700/80 shadow-md">
           <button
             type="button"
             onClick={() => setMobileTab('tests')}
-            className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 ${
+            className={`py-2 px-1 text-xs font-bold rounded-lg transition-all flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 ${
               mobileTab === 'tests'
                 ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <span>🧪</span>
-            <span>Diagnostic Tests (A–J)</span>
+            <span className="truncate">Tests (A–J)</span>
           </button>
           <button
             type="button"
             onClick={() => setMobileTab('preview')}
-            className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 ${
+            className={`py-2 px-1 text-xs font-bold rounded-lg transition-all flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 ${
               mobileTab === 'preview'
                 ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
             <span>🧾</span>
-            <span>Receipt Preview & Print</span>
+            <span className="truncate">Preview</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setMobileTab('logs')}
+            className={`py-2 px-1 text-xs font-bold rounded-lg transition-all flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 ${
+              mobileTab === 'logs'
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <span>📜</span>
+            <span className="truncate">Live Logs</span>
           </button>
         </div>
 
         {/* 2-Column Split: Receipt Preview vs Diagnostic Suite */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Column: Receipt Preview & Inspector (5 Cols) */}
-          <div className={`lg:col-span-5 h-full ${mobileTab === 'preview' ? 'block' : 'hidden lg:block'}`}>
+          <div className={`lg:col-span-5 h-full min-w-0 ${mobileTab === 'preview' ? 'block' : 'hidden lg:block'}`}>
             <ReceiptPreview
               profile={activeProfile}
               receiptData={receiptData}
@@ -470,7 +482,7 @@ export const App: React.FC = () => {
           </div>
 
           {/* Right Column: Diagnostic Test Dashboard (7 Cols) */}
-          <div className={`lg:col-span-7 space-y-6 ${mobileTab === 'tests' ? 'block' : 'hidden lg:block'}`}>
+          <div className={`lg:col-span-7 space-y-6 min-w-0 ${mobileTab === 'tests' ? 'block' : 'hidden lg:block'}`}>
             <DiagnosticTestDashboard
               testResults={testResults}
               profile={activeProfile}
@@ -486,13 +498,15 @@ export const App: React.FC = () => {
           </div>
         </div>
 
-        {/* Full-Width Activity Log Stream */}
-        <ActivityLogViewer
-          logs={logs}
-          onClearLogs={() => setLogs([])}
-          onExportJson={handleExportJson}
-          onExportTxt={handleExportTxt}
-        />
+        {/* Activity Log Stream */}
+        <div className={`min-w-0 ${mobileTab === 'logs' ? 'block' : 'hidden lg:block'}`}>
+          <ActivityLogViewer
+            logs={logs}
+            onClearLogs={() => setLogs([])}
+            onExportJson={handleExportJson}
+            onExportTxt={handleExportTxt}
+          />
+        </div>
       </main>
 
       {/* Hidden printable receipt formatted for browser fallback printing */}

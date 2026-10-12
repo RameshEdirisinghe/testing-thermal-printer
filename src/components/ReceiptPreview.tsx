@@ -243,24 +243,24 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
         )}
 
         {viewMode === 'hex' && (
-          <div className="w-full h-full">
-            <div className="text-[11px] text-slate-400 mb-2 font-mono">
+          <div className="w-full h-full min-w-0 max-w-full overflow-hidden">
+            <div className="text-[11px] text-slate-400 mb-2 font-mono truncate">
               Payload Buffer Size: {generatedBytes.length} bytes (0x{generatedBytes.length.toString(16).toUpperCase()})
             </div>
-            <pre className="font-mono text-xs bg-slate-900 p-3 rounded border border-slate-800 text-emerald-400 overflow-x-auto whitespace-pre">
+            <pre className="font-mono text-xs bg-slate-900 p-3 rounded border border-slate-800 text-emerald-400 overflow-x-auto whitespace-pre max-w-full">
               {formatHexDump(generatedBytes)}
             </pre>
           </div>
         )}
 
         {viewMode === 'mnemonics' && (
-          <div className="w-full h-full">
+          <div className="w-full h-full min-w-0 max-w-full overflow-hidden">
             <div className="text-[11px] text-slate-400 mb-2 font-mono">
               Interpreted ESC/POS Command Sequence:
             </div>
             <div className="space-y-1 font-mono text-xs bg-slate-900 p-3 rounded border border-slate-800 text-cyan-300 max-h-[480px] overflow-y-auto">
               {parseEscPosMnemonics(generatedBytes).map((item, i) => (
-                <div key={i} className="py-0.5 border-b border-slate-800/60 font-mono text-[11px]">
+                <div key={i} className="py-0.5 border-b border-slate-800/60 font-mono text-[11px] break-all">
                   {item}
                 </div>
               ))}
@@ -269,8 +269,8 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
         )}
 
         {viewMode === 'text' && (
-          <div className="w-full h-full">
-            <pre className="font-mono text-xs bg-slate-900 p-3 rounded border border-slate-800 text-slate-200 overflow-x-auto whitespace-pre">
+          <div className="w-full h-full min-w-0 max-w-full overflow-hidden">
+            <pre className="font-mono text-xs bg-slate-900 p-3 rounded border border-slate-800 text-slate-200 overflow-x-auto whitespace-pre max-w-full break-all">
               {Array.from(generatedBytes)
                 .map((b) => (b === 10 ? '\n' : b >= 32 && b <= 126 ? String.fromCharCode(b) : ''))
                 .join('')}

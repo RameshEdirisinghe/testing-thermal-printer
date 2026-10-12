@@ -36,6 +36,13 @@ export const ConnectionPanel: React.FC<ConnectionPanelProps> = ({
 
   const [connectingCard, setConnectingCard] = useState<string | null>(null);
   const [cardError, setCardError] = useState<string | null>(null);
+  const [mobileTransportTab, setMobileTransportTab] = useState<'bluetooth' | 'usb' | 'browser' | 'mock'>('bluetooth');
+
+  React.useEffect(() => {
+    if (activeDevice?.transport) {
+      setMobileTransportTab(activeDevice.transport as any);
+    }
+  }, [activeDevice?.transport]);
 
   const isConnected = status === 'connected';
   const isBusy = status === 'connecting' || status === 'disconnecting';
@@ -133,10 +140,64 @@ export const ConnectionPanel: React.FC<ConnectionPanelProps> = ({
         </div>
       )}
 
+      {/* Mobile Transport Segmented Tabs (Visible on < md) */}
+      <div className="grid grid-cols-4 md:hidden rounded-xl bg-slate-900/90 p-1 border border-slate-700/80 shadow-sm text-xs">
+        <button
+          type="button"
+          onClick={() => setMobileTransportTab('bluetooth')}
+          className={`py-2 px-1 rounded-lg font-semibold text-[11px] transition-all flex flex-col items-center justify-center gap-1 ${
+            mobileTransportTab === 'bluetooth'
+              ? 'bg-cyan-600 text-white shadow-sm'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <IconBluetooth size={16} />
+          <span>BLE</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTransportTab('usb')}
+          className={`py-2 px-1 rounded-lg font-semibold text-[11px] transition-all flex flex-col items-center justify-center gap-1 ${
+            mobileTransportTab === 'usb'
+              ? 'bg-indigo-600 text-white shadow-sm'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <IconUsb size={16} />
+          <span>USB</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTransportTab('browser')}
+          className={`py-2 px-1 rounded-lg font-semibold text-[11px] transition-all flex flex-col items-center justify-center gap-1 ${
+            mobileTransportTab === 'browser'
+              ? 'bg-emerald-600 text-white shadow-sm'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <IconPrinter size={16} />
+          <span>Browser</span>
+        </button>
+        <button
+          type="button"
+          onClick={() => setMobileTransportTab('mock')}
+          className={`py-2 px-1 rounded-lg font-semibold text-[11px] transition-all flex flex-col items-center justify-center gap-1 ${
+            mobileTransportTab === 'mock'
+              ? 'bg-purple-600 text-white shadow-sm'
+              : 'text-slate-400 hover:text-white'
+          }`}
+        >
+          <IconZap size={16} />
+          <span>Simulator</span>
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* 1. Bluetooth BLE Card */}
         <div
           className={`rounded-xl p-4 border flex flex-col justify-between transition-all ${
+            mobileTransportTab === 'bluetooth' ? 'flex' : 'hidden md:flex'
+          } ${
             activeDevice?.transport === 'bluetooth'
               ? 'bg-slate-800/90 border-cyan-500 shadow-lg shadow-cyan-950/40'
               : 'bg-slate-800/50 border-slate-700/80 hover:border-slate-600'
@@ -232,6 +293,8 @@ export const ConnectionPanel: React.FC<ConnectionPanelProps> = ({
         {/* 2. WebUSB Card */}
         <div
           className={`rounded-xl p-4 border flex flex-col justify-between transition-all ${
+            mobileTransportTab === 'usb' ? 'flex' : 'hidden md:flex'
+          } ${
             activeDevice?.transport === 'usb'
               ? 'bg-slate-800/90 border-cyan-500 shadow-lg shadow-cyan-950/40'
               : 'bg-slate-800/50 border-slate-700/80 hover:border-slate-600'
@@ -328,6 +391,8 @@ export const ConnectionPanel: React.FC<ConnectionPanelProps> = ({
         {/* 3. Browser Print Fallback */}
         <div
           className={`rounded-xl p-4 border flex flex-col justify-between transition-all ${
+            mobileTransportTab === 'browser' ? 'flex' : 'hidden md:flex'
+          } ${
             activeDevice?.transport === 'browser'
               ? 'bg-slate-800/90 border-cyan-500 shadow-lg shadow-cyan-950/40'
               : 'bg-slate-800/50 border-slate-700/80 hover:border-slate-600'
@@ -385,6 +450,8 @@ export const ConnectionPanel: React.FC<ConnectionPanelProps> = ({
         {/* 4. Virtual Simulator (Mock) */}
         <div
           className={`rounded-xl p-4 border flex flex-col justify-between transition-all ${
+            mobileTransportTab === 'mock' ? 'flex' : 'hidden md:flex'
+          } ${
             activeDevice?.transport === 'mock'
               ? 'bg-slate-800/90 border-cyan-500 shadow-lg shadow-cyan-950/40'
               : 'bg-slate-800/50 border-slate-700/80 hover:border-slate-600'
