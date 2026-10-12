@@ -1,10 +1,6 @@
 export class TextFormatter {
   /**
    * Sanitizes a string to pure printable ASCII (32-126) + newline,
-   * replacing unsupported characters with close equivalents or '?'
-   */
-  /**
-   * Sanitizes a string to pure printable ASCII (32-126) + newline,
    * replacing unsupported characters with close equivalents or transliterated forms
    */
   static sanitizeAscii(text: string): string {
