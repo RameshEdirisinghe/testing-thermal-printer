@@ -53,7 +53,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block text-slate-400 font-semibold mb-1">Paper Width</label>
               <select
@@ -82,7 +82,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block text-slate-400 font-semibold mb-1">Columns Font A (12x24)</label>
               <input
@@ -104,7 +104,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
             <div>
               <label className="block text-slate-400 font-semibold mb-1">Feed Lines After Print</label>
               <input
@@ -126,7 +126,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
               <label className="block text-slate-400 font-semibold mb-1">Left Margin (Dots)</label>
               <input
@@ -163,7 +163,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
           <div className="p-3 bg-slate-800/60 rounded-lg space-y-2 border border-slate-700/60">
             <span className="font-bold text-slate-300 block mb-1">Hardware Capabilities</span>
-            <div className="grid grid-cols-2 gap-3 mb-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -202,7 +202,7 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
           <div className="p-3 bg-slate-800/60 rounded-lg space-y-3 border border-slate-700/60">
             <span className="font-bold text-slate-300 block">Transport Packet Tuning</span>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="block text-slate-400 text-[11px] mb-1">BLE MTU Chunk (Bytes)</label>
                 <input
@@ -234,16 +234,16 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           </div>
         </div>
 
-        <div className="p-4 border-t border-slate-800 flex justify-end gap-2 bg-slate-900/80">
+        <div className="p-3 sm:p-4 border-t border-slate-800 flex flex-col-reverse sm:flex-row justify-end gap-2 bg-slate-900/80">
           <button
             onClick={onClose}
-            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs font-semibold"
+            className="w-full sm:w-auto px-3 py-2 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs font-semibold text-center"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold shadow-md"
+            className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2 sm:py-1.5 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-bold shadow-md"
           >
             <IconCheckCircle size={14} />
             <span>Save Profile</span>

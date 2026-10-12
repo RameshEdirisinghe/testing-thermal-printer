@@ -110,7 +110,7 @@ export const DiagnosticTestDashboard: React.FC<DiagnosticTestDashboardProps> = (
   return (
     <div className="space-y-4">
       {/* Test Suite Controls Header */}
-      <div className="bg-slate-800/80 rounded-xl p-4 border border-slate-700/80 shadow-sm flex flex-wrap items-center justify-between gap-4">
+      <div className="bg-slate-800/80 rounded-xl p-3 sm:p-4 border border-slate-700/80 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">
             Diagnostic Test Suite
@@ -121,11 +121,11 @@ export const DiagnosticTestDashboard: React.FC<DiagnosticTestDashboardProps> = (
         </div>
 
         {/* Action button */}
-        <div className="flex items-center gap-3">
+        <div className="w-full sm:w-auto">
           <button
             onClick={onRunAll}
             disabled={!canRunTests || isBusy}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold shadow-lg shadow-cyan-950/40 transition-all"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold shadow-lg shadow-cyan-950/40 transition-all"
           >
             <IconPlay size={14} />
             <span>Run Safe Batch (A - G, I)</span>
@@ -134,26 +134,26 @@ export const DiagnosticTestDashboard: React.FC<DiagnosticTestDashboardProps> = (
       </div>
 
       {/* Summary Metrics Bar */}
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-        <div className="p-3 rounded-lg bg-emerald-950/30 border border-emerald-900/50 flex flex-col">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-3">
+        <div className="p-2.5 sm:p-3 rounded-lg bg-emerald-950/30 border border-emerald-900/50 flex flex-col">
           <span className="text-[10px] uppercase font-bold text-emerald-400">Passed</span>
-          <span className="text-xl font-bold font-mono text-emerald-300">{passedCount}</span>
+          <span className="text-lg sm:text-xl font-bold font-mono text-emerald-300">{passedCount}</span>
         </div>
-        <div className="p-3 rounded-lg bg-cyan-950/30 border border-cyan-900/50 flex flex-col">
-          <span className="text-[10px] uppercase font-bold text-cyan-400">Awaiting Verify</span>
-          <span className="text-xl font-bold font-mono text-cyan-300">{awaitingCount}</span>
+        <div className="p-2.5 sm:p-3 rounded-lg bg-cyan-950/30 border border-cyan-900/50 flex flex-col">
+          <span className="text-[10px] uppercase font-bold text-cyan-400 truncate">Awaiting Verify</span>
+          <span className="text-lg sm:text-xl font-bold font-mono text-cyan-300">{awaitingCount}</span>
         </div>
-        <div className="p-3 rounded-lg bg-rose-950/30 border border-rose-900/50 flex flex-col">
+        <div className="p-2.5 sm:p-3 rounded-lg bg-rose-950/30 border border-rose-900/50 flex flex-col">
           <span className="text-[10px] uppercase font-bold text-rose-400">Failed</span>
-          <span className="text-xl font-bold font-mono text-rose-300">{failedCount}</span>
+          <span className="text-lg sm:text-xl font-bold font-mono text-rose-300">{failedCount}</span>
         </div>
-        <div className="p-3 rounded-lg bg-purple-950/30 border border-purple-900/50 flex flex-col">
+        <div className="p-2.5 sm:p-3 rounded-lg bg-purple-950/30 border border-purple-900/50 flex flex-col">
           <span className="text-[10px] uppercase font-bold text-purple-400">Unsupported</span>
-          <span className="text-xl font-bold font-mono text-purple-300">{unsupportedCount}</span>
+          <span className="text-lg sm:text-xl font-bold font-mono text-purple-300">{unsupportedCount}</span>
         </div>
-        <div className="p-3 rounded-lg bg-slate-800/40 border border-slate-700/50 flex flex-col">
+        <div className="col-span-2 sm:col-span-1 p-2.5 sm:p-3 rounded-lg bg-slate-800/40 border border-slate-700/50 flex flex-col">
           <span className="text-[10px] uppercase font-bold text-slate-400">Skipped / Idle</span>
-          <span className="text-xl font-bold font-mono text-slate-300">{skippedCount}</span>
+          <span className="text-lg sm:text-xl font-bold font-mono text-slate-300">{skippedCount}</span>
         </div>
       </div>
 
@@ -167,10 +167,10 @@ export const DiagnosticTestDashboard: React.FC<DiagnosticTestDashboardProps> = (
             return (
               <div
                 key={testDef.id}
-                className="p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 hover:bg-slate-800/80 transition-colors"
+                className="p-3 sm:p-4 flex flex-col md:flex-row md:items-center justify-between gap-3 hover:bg-slate-800/80 transition-colors"
               >
                 <div className="space-y-1 max-w-xl">
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                     <h3 className="text-xs font-bold text-white tracking-wide">
                       {testDef.name}
                     </h3>
@@ -190,14 +190,14 @@ export const DiagnosticTestDashboard: React.FC<DiagnosticTestDashboardProps> = (
                     {testDef.description}
                   </p>
                   {result?.details && result.status !== 'idle' && (
-                    <div className="text-[11px] font-mono text-slate-300 bg-slate-900/80 p-1.5 rounded border border-slate-800">
+                    <div className="text-[11px] font-mono text-slate-300 bg-slate-900/80 p-1.5 rounded border border-slate-800 break-words">
                       {result.details}
                       {result.bytesTransmitted ? ` (${result.bytesTransmitted} bytes transmitted)` : ''}
                     </div>
                   )}
                 </div>
 
-                <div className="flex items-center gap-2 flex-shrink-0 self-end md:self-center">
+                <div className="flex items-center gap-2 flex-wrap w-full md:w-auto justify-end pt-2 md:pt-0 border-t border-slate-800/40 md:border-0">
                   {testDef.requiresHardwarePrint && (
                     <button
                       onClick={() => onPreviewTest(testDef.id)}

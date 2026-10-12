@@ -59,6 +59,7 @@ export const App: React.FC = () => {
   const [isBusy, setIsBusy] = useState<boolean>(false);
   const [previewTestPayload, setPreviewTestPayload] = useState<{ id: DiagnosticTestId; title: string; bytes: Uint8Array } | null>(null);
   const [browserPrintText, setBrowserPrintText] = useState<string | null>(null);
+  const [mobileTab, setMobileTab] = useState<'tests' | 'preview'>('tests');
 
   // Modals state
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
@@ -293,6 +294,7 @@ export const App: React.FC = () => {
       title: def?.name || testId,
       bytes,
     });
+    setMobileTab('preview');
     addLog('info', 'test', `Previewing test payload in inspector: ${def?.name || testId}`);
   };
 
@@ -391,7 +393,7 @@ export const App: React.FC = () => {
       <BrowserCompatibilityBanner env={env} />
 
       {/* Main Dashboard Layout */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 lg:p-8 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 space-y-5 sm:space-y-6">
         {/* Receipt Width & Profile Bar */}
         <PrinterProfileSelector
           activeProfile={activeProfile}
@@ -421,10 +423,38 @@ export const App: React.FC = () => {
           />
         )}
 
+        {/* Mobile View Switcher (Visible only on screens below lg) */}
+        <div className="flex lg:hidden rounded-xl bg-slate-800/90 p-1 border border-slate-700/80 shadow-md">
+          <button
+            type="button"
+            onClick={() => setMobileTab('tests')}
+            className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 ${
+              mobileTab === 'tests'
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <span>🧪</span>
+            <span>Diagnostic Tests (A–J)</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setMobileTab('preview')}
+            className={`flex-1 py-2.5 px-3 text-xs font-bold rounded-lg transition-all flex items-center justify-center gap-2 ${
+              mobileTab === 'preview'
+                ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-white'
+            }`}
+          >
+            <span>🧾</span>
+            <span>Receipt Preview & Print</span>
+          </button>
+        </div>
+
         {/* 2-Column Split: Receipt Preview vs Diagnostic Suite */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           {/* Left Column: Receipt Preview & Inspector (5 Cols) */}
-          <div className="lg:col-span-5 h-full">
+          <div className={`lg:col-span-5 h-full ${mobileTab === 'preview' ? 'block' : 'hidden lg:block'}`}>
             <ReceiptPreview
               profile={activeProfile}
               receiptData={receiptData}
@@ -440,7 +470,7 @@ export const App: React.FC = () => {
           </div>
 
           {/* Right Column: Diagnostic Test Dashboard (7 Cols) */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className={`lg:col-span-7 space-y-6 ${mobileTab === 'tests' ? 'block' : 'hidden lg:block'}`}>
             <DiagnosticTestDashboard
               testResults={testResults}
               profile={activeProfile}

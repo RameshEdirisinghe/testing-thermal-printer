@@ -91,9 +91,9 @@ export const ActivityLogViewer: React.FC<ActivityLogViewerProps> = ({
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="px-4 py-2.5 bg-slate-900/50 border-b border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs">
-        <div className="flex items-center gap-2">
-          <span className="text-slate-400 font-medium">Filter:</span>
+      <div className="px-3 sm:px-4 py-2.5 bg-slate-900/50 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+          <span className="text-slate-400 font-medium mr-0.5">Filter:</span>
           {(['all', 'info', 'success', 'warn', 'error'] as const).map((sev) => (
             <button
               key={sev}
@@ -114,7 +114,7 @@ export const ActivityLogViewer: React.FC<ActivityLogViewerProps> = ({
           placeholder="Search log messages..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono w-48"
+          className="bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 font-mono w-full sm:w-56"
         />
       </div>
 
@@ -124,7 +124,7 @@ export const ActivityLogViewer: React.FC<ActivityLogViewerProps> = ({
           <div className="text-center py-6 text-slate-600 italic">No events recorded.</div>
         ) : (
           filteredLogs.map((log) => (
-            <div key={log.id} className="flex items-start gap-2 leading-relaxed hover:bg-slate-900/50 p-1 rounded">
+            <div key={log.id} className="flex items-start gap-1.5 sm:gap-2 leading-relaxed hover:bg-slate-900/50 p-1 rounded min-w-0">
               <span className="text-slate-500 text-[10px] select-none flex-shrink-0 pt-0.5">
                 {log.timestamp}
               </span>
@@ -135,10 +135,10 @@ export const ActivityLogViewer: React.FC<ActivityLogViewerProps> = ({
               >
                 {log.severity}
               </span>
-              <span className="text-slate-400 text-[11px] select-none flex-shrink-0">
+              <span className="text-slate-400 text-[11px] select-none flex-shrink-0 hidden xs:inline">
                 [{log.category}]
               </span>
-              <span className="text-slate-200 flex-1 break-words">{log.message}</span>
+              <span className="text-slate-200 flex-1 break-words break-all min-w-0">{log.message}</span>
             </div>
           ))
         )}

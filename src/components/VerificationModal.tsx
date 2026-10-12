@@ -77,25 +77,25 @@ export const VerificationModal: React.FC<VerificationModalProps> = ({
           </div>
         </div>
 
-        <div className="p-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2 bg-slate-900/80">
+        <div className="p-3 sm:p-4 border-t border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-slate-900/80">
           <button
             onClick={handleSkip}
-            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 text-xs font-semibold"
+            className="w-full sm:w-auto px-3 py-2 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-slate-200 text-xs font-semibold order-last sm:order-first text-center"
           >
             Skip Verification
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 w-full sm:w-auto">
             <button
               onClick={handleFail}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 text-xs font-bold"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-2 sm:py-1.5 rounded-lg bg-rose-600/20 hover:bg-rose-600/30 text-rose-300 border border-rose-500/40 text-xs font-bold"
             >
               <IconXCircle size={14} />
               <span>Mark Failed</span>
             </button>
             <button
               onClick={handlePass}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md"
+              className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-4 py-2 sm:py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold shadow-md"
             >
               <IconCheckCircle size={14} />
               <span>Confirm Passed</span>

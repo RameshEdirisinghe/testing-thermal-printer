@@ -57,10 +57,10 @@ export const StressTestModal: React.FC<StressTestModalProps> = ({
           </div>
         </div>
 
-        <div className="p-4 border-t border-slate-800 flex justify-end gap-2 bg-slate-900/80">
+        <div className="p-3 sm:p-4 border-t border-slate-800 flex flex-col-reverse sm:flex-row justify-end gap-2 bg-slate-900/80">
           <button
             onClick={onClose}
-            className="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs font-semibold"
+            className="w-full sm:w-auto px-3 py-2 sm:py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-400 text-xs font-semibold text-center"
           >
             Cancel
           </button>
@@ -69,7 +69,7 @@ export const StressTestModal: React.FC<StressTestModalProps> = ({
               onConfirm(iterations);
               onClose();
             }}
-            className="px-4 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md"
+            className="w-full sm:w-auto px-4 py-2 sm:py-1.5 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md text-center"
           >
             Confirm & Run Stress Test
           </button>

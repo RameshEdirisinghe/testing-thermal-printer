@@ -105,7 +105,7 @@ export const ConnectionPanel: React.FC<ConnectionPanelProps> = ({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
         <h2 className="text-sm font-bold uppercase tracking-wider text-slate-300 flex items-center gap-2">
           <span>Printer Transports & Hardware Connect</span>
         </h2>
@@ -113,7 +113,7 @@ export const ConnectionPanel: React.FC<ConnectionPanelProps> = ({
           <button
             onClick={onDisconnect}
             disabled={isBusy}
-            className="px-3 py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-semibold transition-colors flex items-center gap-1.5"
+            className="w-full sm:w-auto px-3 py-2 sm:py-1.5 rounded-lg bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/30 text-xs font-semibold transition-colors flex items-center justify-center gap-1.5"
           >
             <span>Disconnect {activeDevice?.name}</span>
           </button>
@@ -133,7 +133,7 @@ export const ConnectionPanel: React.FC<ConnectionPanelProps> = ({
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
         {/* 1. Bluetooth BLE Card */}
         <div
           className={`rounded-xl p-4 border flex flex-col justify-between transition-all ${

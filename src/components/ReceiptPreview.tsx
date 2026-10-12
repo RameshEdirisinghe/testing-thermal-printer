@@ -61,75 +61,79 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
   return (
     <div className="bg-slate-800/80 rounded-xl border border-slate-700/80 shadow-md flex flex-col h-full overflow-hidden">
       {/* Card Header & Controls */}
-      <div className="p-4 border-b border-slate-700/80 flex flex-wrap items-center justify-between gap-3 bg-slate-800/60">
-        <div className="flex items-center gap-2">
+      <div className="p-3 sm:p-4 border-b border-slate-700/80 flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-slate-800/60">
+        <div className="flex items-center gap-2 flex-wrap">
           <IconEye size={18} className="text-cyan-400" />
           <h2 className="text-sm font-bold text-white uppercase tracking-wider">
-            Receipt Preview & Byte Inspector
+            Receipt Preview
           </h2>
           <span className="text-xs px-2 py-0.5 rounded bg-slate-900 text-cyan-400 font-mono border border-slate-700">
-            {profile.paperWidth}mm ({cols} chars/line)
+            {profile.paperWidth}mm ({cols}c)
           </span>
         </div>
 
         {/* View Mode Tabs */}
-        <div className="inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-700 text-xs">
+        <div className="inline-flex rounded-lg bg-slate-900 p-0.5 border border-slate-700 text-xs overflow-x-auto max-w-full">
           <button
             onClick={() => setViewMode('visual')}
-            className={`px-2.5 py-1 rounded font-medium transition-all ${
+            className={`px-2.5 py-1.5 sm:py-1 rounded font-medium transition-all flex-shrink-0 ${
               viewMode === 'visual' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
             }`}
           >
-            Visual Paper
+            <span className="sm:hidden">Visual</span>
+            <span className="hidden sm:inline">Visual Paper</span>
           </button>
           <button
             onClick={() => setViewMode('hex')}
-            className={`px-2.5 py-1 rounded font-medium transition-all ${
+            className={`px-2.5 py-1.5 sm:py-1 rounded font-medium transition-all flex-shrink-0 ${
               viewMode === 'hex' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
             }`}
           >
-            Hex Dump
+            <span className="sm:hidden">Hex</span>
+            <span className="hidden sm:inline">Hex Dump</span>
           </button>
           <button
             onClick={() => setViewMode('mnemonics')}
-            className={`px-2.5 py-1 rounded font-medium transition-all ${
+            className={`px-2.5 py-1.5 sm:py-1 rounded font-medium transition-all flex-shrink-0 ${
               viewMode === 'mnemonics' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
             }`}
           >
-            ESC/POS Parser
+            <span className="sm:hidden">Parser</span>
+            <span className="hidden sm:inline">ESC/POS Parser</span>
           </button>
           <button
             onClick={() => setViewMode('text')}
-            className={`px-2.5 py-1 rounded font-medium transition-all ${
+            className={`px-2.5 py-1.5 sm:py-1 rounded font-medium transition-all flex-shrink-0 ${
               viewMode === 'text' ? 'bg-cyan-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
             }`}
           >
-            Raw Text
+            <span className="sm:hidden">Text</span>
+            <span className="hidden sm:inline">Raw Text</span>
           </button>
         </div>
       </div>
 
       {/* Preview Context & Overflow Alert Banners */}
       {previewTitle && previewTitle !== 'Custom Test Receipt' && (
-        <div className="px-4 py-2 bg-cyan-950/40 border-b border-cyan-800/40 text-xs text-cyan-300 flex items-center justify-between">
-          <div className="flex items-center gap-1.5 font-medium">
-            <IconEye size={14} className="text-cyan-400" />
-            <span>Previewing Payload: <strong>{previewTitle}</strong></span>
+        <div className="px-3 sm:px-4 py-2 bg-cyan-950/40 border-b border-cyan-800/40 text-xs text-cyan-300 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-1.5 font-medium truncate">
+            <IconEye size={14} className="text-cyan-400 flex-shrink-0" />
+            <span className="truncate">Previewing: <strong>{previewTitle}</strong></span>
           </div>
           {onResetPreview && (
             <button
               onClick={onResetPreview}
-              className="px-2 py-0.5 rounded bg-cyan-900/60 hover:bg-cyan-800 text-cyan-200 text-[11px] font-semibold border border-cyan-700/60 transition-colors"
+              className="px-2 py-0.5 rounded bg-cyan-900/60 hover:bg-cyan-800 text-cyan-200 text-[11px] font-semibold border border-cyan-700/60 transition-colors flex-shrink-0"
             >
-              Reset to Custom Receipt
+              Reset to Receipt
             </button>
           )}
         </div>
       )}
 
       {overflows.length > 0 && (
-        <div className="px-4 py-2 bg-amber-950/40 border-b border-amber-800/40 text-[11px] text-amber-300 flex items-start gap-1.5">
-          <span className="font-bold flex-shrink-0">⚠️ Overflow Warning:</span>
+        <div className="px-3 sm:px-4 py-2 bg-amber-950/40 border-b border-amber-800/40 text-[11px] text-amber-300 flex items-start gap-1.5">
+          <span className="font-bold flex-shrink-0">⚠️ Overflow:</span>
           <span className="leading-relaxed">
             {overflows.length} item(s) exceed {cols} columns for {profile.paperWidth}mm paper ({overflows.slice(0, 2).join(', ')}{overflows.length > 2 ? ` +${overflows.length - 2} more` : ''}). Content will wrap or clip on physical printer.
           </span>
@@ -137,11 +141,11 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
       )}
 
       {/* Main Preview Container */}
-      <div className="flex-1 p-4 bg-slate-950/60 overflow-y-auto max-h-[600px] flex items-start justify-center">
+      <div className="flex-1 p-3 sm:p-4 bg-slate-950/60 overflow-y-auto max-h-[600px] flex items-start justify-center">
         {viewMode === 'visual' && (
           <div
             className={`bg-[#fafaf7] text-[#111827] shadow-2xl rounded-sm p-4 font-mono select-none transition-all duration-200 border-x border-slate-300 relative ${
-              is58mm ? 'w-[260px] text-[11px]' : 'w-[360px] text-[12px]'
+              is58mm ? 'w-full max-w-[260px] text-[11px]' : 'w-full max-w-[340px] sm:max-w-[360px] text-[12px]'
             }`}
             style={{
               lineHeight: '1.25',
@@ -276,14 +280,14 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
       </div>
 
       {/* Action Footer with distinct Preview and Print actions */}
-      <div className="p-4 border-t border-slate-700/80 bg-slate-800/60 flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-center gap-2">
+      <div className="p-3 sm:p-4 border-t border-slate-700/80 bg-slate-800/60 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={() => {
               setViewMode('visual');
               if (onRefreshPreview) onRefreshPreview();
             }}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-semibold border border-slate-700 transition-colors"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-300 text-xs font-semibold border border-slate-700 transition-colors"
             title="Update and view visual preview without transmitting to hardware"
           >
             <IconEye size={14} />
@@ -292,21 +296,21 @@ export const ReceiptPreview: React.FC<ReceiptPreviewProps> = ({
 
           <button
             onClick={onOpenCustomizer}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold transition-colors"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-semibold transition-colors"
           >
             <IconSettings size={14} />
-            <span>Customize Content</span>
+            <span>Customize</span>
           </button>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="text-[11px] text-slate-400">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between sm:justify-end gap-2 pt-2 sm:pt-0 border-t border-slate-800/40 sm:border-0">
+          <span className="text-[11px] text-slate-400 text-center sm:text-right">
             {canPrint ? 'Ready to transmit' : 'Connect printer to print'}
           </span>
           <button
             onClick={onPrintReceipt}
             disabled={!canPrint || isPrinting}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold shadow-md shadow-cyan-950/40 transition-colors"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 sm:py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-bold shadow-md shadow-cyan-950/40 transition-colors"
           >
             <IconPrinter size={16} />
             <span>{isPrinting ? 'Printing...' : 'Print Test Receipt'}</span>

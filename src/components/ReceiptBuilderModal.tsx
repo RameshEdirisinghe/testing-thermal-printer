@@ -142,35 +142,37 @@ export const ReceiptBuilderModal: React.FC<ReceiptBuilderModalProps> = ({
             </div>
 
             {/* Add Item Row */}
-            <form onSubmit={handleAddItem} className="grid grid-cols-12 gap-2 items-center pt-2">
+            <form onSubmit={handleAddItem} className="flex flex-col sm:grid sm:grid-cols-12 gap-2 pt-2">
               <input
                 type="text"
                 placeholder="Product name"
                 value={newItemName}
                 onChange={(e) => setNewItemName(e.target.value)}
-                className="col-span-6 bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-1.5 text-white"
+                className="w-full sm:col-span-6 bg-slate-800 border border-slate-700 rounded-lg px-2.5 py-2 sm:py-1.5 text-white"
               />
-              <input
-                type="number"
-                min="1"
-                placeholder="Qty"
-                value={newItemQty}
-                onChange={(e) => setNewItemQty(parseInt(e.target.value) || 1)}
-                className="col-span-2 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-white text-center"
-              />
-              <input
-                type="number"
-                step="0.01"
-                placeholder="Price"
-                value={newItemPrice}
-                onChange={(e) => setNewItemPrice(parseFloat(e.target.value) || 0)}
-                className="col-span-2 bg-slate-800 border border-slate-700 rounded-lg px-2 py-1.5 text-white text-right"
-              />
+              <div className="flex gap-2 sm:contents">
+                <input
+                  type="number"
+                  min="1"
+                  placeholder="Qty"
+                  value={newItemQty}
+                  onChange={(e) => setNewItemQty(parseInt(e.target.value) || 1)}
+                  className="flex-1 sm:col-span-2 bg-slate-800 border border-slate-700 rounded-lg px-2 py-2 sm:py-1.5 text-white text-center"
+                />
+                <input
+                  type="number"
+                  step="0.01"
+                  placeholder="Price"
+                  value={newItemPrice}
+                  onChange={(e) => setNewItemPrice(parseFloat(e.target.value) || 0)}
+                  className="flex-1 sm:col-span-2 bg-slate-800 border border-slate-700 rounded-lg px-2 py-2 sm:py-1.5 text-white text-right"
+                />
+              </div>
               <button
                 type="submit"
-                className="col-span-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg py-1.5 font-semibold text-[11px]"
+                className="w-full sm:col-span-2 bg-slate-700 hover:bg-slate-600 text-white rounded-lg py-2 sm:py-1.5 font-semibold text-xs"
               >
-                + Add
+                + Add Item
               </button>
             </form>
           </div>
@@ -274,16 +276,16 @@ export const ReceiptBuilderModal: React.FC<ReceiptBuilderModalProps> = ({
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 border-t border-slate-800 flex justify-end gap-3 bg-slate-900/80">
+        <div className="p-3 sm:p-4 border-t border-slate-800 flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 bg-slate-900/80">
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold"
+            className="w-full sm:w-auto px-4 py-2.5 sm:py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-center"
           >
             Cancel
           </button>
           <button
             onClick={handleSave}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold shadow-md"
+            className="w-full sm:w-auto flex items-center justify-center gap-1.5 px-4 py-2.5 sm:py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-white font-bold shadow-md"
           >
             <IconCheckCircle size={16} />
             <span>Apply to Preview</span>

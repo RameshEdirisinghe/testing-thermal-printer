@@ -30,12 +30,12 @@ export const PrinterInfoCard: React.FC<PrinterInfoCardProps> = ({
   };
 
   return (
-    <div className="bg-slate-800/60 rounded-xl p-4 border border-slate-700/60">
-      <div className="flex items-center justify-between pb-3 border-b border-slate-700/60">
-        <div className="flex items-center gap-2">
+    <div className="bg-slate-800/60 rounded-xl p-3 sm:p-4 border border-slate-700/60">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-700/60">
+        <div className="flex items-center gap-2 flex-wrap">
           {getTransportIcon()}
-          <span className="text-xs font-bold text-white uppercase tracking-wider">
-            Connected Hardware Info: {device.name}
+          <span className="text-xs font-bold text-white uppercase tracking-wider truncate">
+            Hardware: {device.name}
           </span>
           {device.isEmulated && (
             <span className="text-[10px] bg-purple-950 text-purple-300 border border-purple-800 px-1.5 py-0.5 rounded font-mono">
@@ -48,7 +48,7 @@ export const PrinterInfoCard: React.FC<PrinterInfoCardProps> = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-3 text-xs">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 pt-3 text-xs">
         <div>
           <span className="text-[10px] text-slate-400 uppercase tracking-wider block">Transport Protocol</span>
           <span className="text-slate-200 font-medium font-mono uppercase">{device.transport}</span>
